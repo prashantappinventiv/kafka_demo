@@ -5,7 +5,7 @@ import { ConsumerService } from './module/kafka/consumer/conusmer.service';
 
 @Module({
   imports: [KafkaModule],
-  controllers: [AppController,],
+  controllers: [AppController],
   providers: [],
 })
 export class AppModule {}

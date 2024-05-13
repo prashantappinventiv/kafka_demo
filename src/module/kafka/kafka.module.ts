@@ -18,8 +18,8 @@ import { ConsumerService } from './consumer/conusmer.service';
       },
     ]),
   ],
-  controllers:[ConsumerService],
-  providers: [ ProducerService,],
-  exports: [ ProducerService],
+  controllers: [ConsumerService],
+  providers: [ProducerService],
+  exports: [ProducerService],
 })
 export class KafkaModule {}

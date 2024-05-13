@@ -23,17 +23,21 @@ export class ProducerService implements OnModuleInit, OnModuleDestroy {
   }
 
   async onModuleInit() {
-    await this.client.connect();
     console.log('Subscribing to user.create');
     this.client.subscribeToResponseOf('user.create');
-    console.log('Subscribing to user.create.reply');
-    this.client.subscribeToResponseOf('user.create.reply');
+    await this.client.connect();
   }
 
   async sendMessage(topic: string, message: any) {
     try {
-      await lastValueFrom(this.client.send(topic, message));
-      console.log('Message sent successfully:', topic, message);
+      await lastValueFrom(this.client.send(topic, message))
+        .then((data: any) => {
+          console.info('data', data);
+          return data;
+        })
+        .catch((err: any) => {
+          console.error('err', err);
+        });
     } catch (error) {
       console.error('Error sending message:', error);
     }
