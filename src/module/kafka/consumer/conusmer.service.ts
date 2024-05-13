@@ -4,7 +4,7 @@ import { MessagePattern, Payload } from '@nestjs/microservices';
 @Injectable()
 export class ConsumerService {
   @MessagePattern('user.create')
-  handleMessage(@Payload('message') payload: any) {
-    console.log(payload, 'Received message:');
+  handleMessage(@Payload() payload: any) {
+    console.log('Received message:', payload);
   }
 }
