@@ -14,14 +14,12 @@ import { ConsumerService } from './consumer/conusmer.service';
           client: {
             brokers: ['localhost:9092'],
           },
-          consumer: {
-            groupId: 'kafka-group',
-          },
         },
       },
     ]),
   ],
-  providers: [ConsumerService, ProducerService],
-  exports: [ConsumerService, ProducerService],
+  controllers:[ConsumerService],
+  providers: [ ProducerService,],
+  exports: [ ProducerService],
 })
 export class KafkaModule {}

@@ -11,6 +11,9 @@ export class ProducerService implements OnModuleInit, OnModuleDestroy {
       client: {
         brokers: ['localhost:9092'],
       },
+      consumer: {
+        groupId: 'kafka-group',
+      },
     },
   })
   private readonly client: ClientKafka;
@@ -21,13 +24,16 @@ export class ProducerService implements OnModuleInit, OnModuleDestroy {
 
   async onModuleInit() {
     await this.client.connect();
+    console.log('Subscribing to user.create');
     this.client.subscribeToResponseOf('user.create');
+    console.log('Subscribing to user.create.reply');
+    this.client.subscribeToResponseOf('user.create.reply');
   }
 
   async sendMessage(topic: string, message: any) {
     try {
-      await lastValueFrom(this.client.emit(topic, message));
-      console.log('Message sent successfully:', message);
+      await lastValueFrom(this.client.send(topic, message));
+      console.log('Message sent successfully:', topic, message);
     } catch (error) {
       console.error('Error sending message:', error);
     }
